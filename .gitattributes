@@ -1,0 +1,7 @@
+* text=auto
+*.onnx binary
+*.f32 binary
+*.npy binary
+*.model binary
+*.png binary
+*.wav binary

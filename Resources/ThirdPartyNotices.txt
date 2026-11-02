@@ -1,0 +1,61 @@
+RONA VOICE — THIRD-PARTY NOTICES
+
+This app runs speech recognition and conversation generation on device using Apple frameworks.
+Apple Intelligence and English speech assets must be installed before offline use.
+
+VOICE MODEL AND PERSONAS
+The supplied YaraVoice_bundle is attributed by its README to Kyutai Pocket TTS
+(english, 2026-10). Model weights: Creative Commons Attribution 4.0 International.
+https://huggingface.co/kyutai/pocket-tts
+https://creativecommons.org/licenses/by/4.0/
+
+ONNX graphs derived from KevinAHM/pocket-tts-onnx (Apache-2.0 code; CC BY 4.0 weights).
+https://github.com/KevinAHM/pocket-tts-onnx
+
+The supplied persona embeddings are blends of VCTK speakers (CC BY 4.0),
+re-voiced using Sesame CSM-1B, according to the supplied bundle README.
+https://datashare.ed.ac.uk/handle/10283/3443
+https://github.com/SesameAILabs/csm
+
+The native runtime is a new C++ port of the supplied pocket_onnx.py reference.
+Changes: incremental audio decoding, bounded text chunks, cancellation, native model
+integration, and audio range validation. Model weights and voice embeddings are unchanged.
+Original bundle provenance and checksums are included in YaraVoice_bundle.
+
+ONNX RUNTIME 1.23.2 — MIT License
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies
+or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+NLOHMANN JSON 3.12.0 — MIT License
+Copyright (c) 2013-2025 Niels Lohmann.
+The MIT permission and warranty text above also applies to nlohmann/json.
+https://github.com/nlohmann/json
+
+SENTENCEPIECE 0.2.1 — Apache License 2.0
+Copyright 2016 Google Inc.
+https://github.com/google/sentencepiece
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied. See the License for the specific language governing
+permissions and limitations under the License.
+
+Complete dependency licenses and third-party notices accompany this app in Legal/.

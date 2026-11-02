@@ -1,0 +1,86 @@
+name: RonaVoice
+options:
+  # Retain established bundle identifiers across the rename to preserve macOS permissions.
+  bundleIdPrefix: app.yara.voice
+  deploymentTarget:
+    macOS: "26.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    ARCHS: arm64
+    ONLY_ACTIVE_ARCH: YES
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Manual
+    # Ad-hoc local signing has no Team ID for validating embedded libraries.
+    # Enable hardened runtime when exporting with a real Developer ID identity.
+    ENABLE_HARDENED_RUNTIME: NO
+    CLANG_CXX_LANGUAGE_STANDARD: c++17
+targets:
+  RonaVoice:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/RonaVoice
+      - path: Native/RonaSpeech.cpp
+      - path: Resources/Assets.xcassets
+      - path: Resources/ThirdPartyNotices.txt
+      - path: Resources/Legal
+        type: folder
+        buildPhase: resources
+      - path: YaraVoice_bundle
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.yara.voice.local
+        PRODUCT_NAME: RonaVoice
+        INFOPLIST_FILE: Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Resources/RonaVoice.entitlements
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        SWIFT_INCLUDE_PATHS: "$(SRCROOT)/Native/include"
+        HEADER_SEARCH_PATHS: "$(SRCROOT)/Native/include $(SRCROOT)/.build/deps/onnxruntime/include $(SRCROOT)/.build/deps/sentencepiece/include $(SRCROOT)/.build/deps/include"
+        LIBRARY_SEARCH_PATHS: "$(SRCROOT)/.build/deps/onnxruntime/lib $(SRCROOT)/.build/deps/sentencepiece/lib"
+        OTHER_LDFLAGS: ["$(inherited)", "-lonnxruntime", "-lsentencepiece", "-lc++"]
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    postBuildScripts:
+      - name: Embed ONNX Runtime
+        script: |
+          set -e
+          mkdir -p "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH"
+          cp "$SRCROOT/.build/deps/onnxruntime/lib/libonnxruntime.1.23.2.dylib" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/"
+          codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libonnxruntime.1.23.2.dylib"
+        basedOnDependencyAnalysis: false
+  RonaVoiceTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [Tests]
+    dependencies:
+      - target: RonaVoice
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: app.yara.voice.tests
+        SWIFT_INCLUDE_PATHS: "$(SRCROOT)/Native/include"
+  RonaVoiceUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources: [UITests]
+    dependencies:
+      - target: RonaVoice
+    settings:
+      base:
+        ENABLE_HARDENED_RUNTIME: NO
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: app.yara.voice.uitests
+schemes:
+  RonaVoice:
+    build:
+      targets:
+        RonaVoice: all
+        RonaVoiceTests: [test]
+        RonaVoiceUITests: [test]
+    test:
+      targets: [RonaVoiceTests, RonaVoiceUITests]

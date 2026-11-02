@@ -1,0 +1,4 @@
+module RonaSpeech {
+    header "RonaSpeech.h"
+    export *
+}

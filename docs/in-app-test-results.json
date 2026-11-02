@@ -1,0 +1,11 @@
+{
+  "checks" : [
+    "Real typed turn, streamed Foundation Models response, native speech, and audio playback completion",
+    "Conversational memory",
+    "Muting during playback preserves the reply and returns to idle",
+    "Stop during speech followed immediately by a successful new turn",
+    "New conversation clears transcript and draft"
+  ],
+  "result" : "passed",
+  "scope" : "In-process app state and content-view captures. Not XCTest UI automation or live microphone verification."
+}

@@ -1,0 +1,37 @@
+{
+ "model": "pocket-tts english (2026-10)",
+ "voices": {
+  "f_us_warm": {
+   "shape": [
+    53,
+    1024
+   ],
+   "dtype": "float32-le",
+   "source": "personas/final/f_us_warm.wav"
+  },
+  "f_us_bright": {
+   "shape": [
+    63,
+    1024
+   ],
+   "dtype": "float32-le",
+   "source": "personas/final/f_us_bright.wav"
+  },
+  "m_us_relaxed": {
+   "shape": [
+    62,
+    1024
+   ],
+   "dtype": "float32-le",
+   "source": "personas/final/m_us_relaxed.wav"
+  },
+  "m_us_upbeat": {
+   "shape": [
+    58,
+    1024
+   ],
+   "dtype": "float32-le",
+   "source": "personas/final/m_us_upbeat.wav"
+  }
+ }
+}

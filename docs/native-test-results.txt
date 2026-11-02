@@ -1,0 +1,8 @@
+Native dependencies are ready.
+PASS: all 10 reference tokenizer vectors
+PASS: f_us_warm, 3.68 s audio, 0.439484 s generation
+PASS: f_us_bright, 4 s audio, 0.481664 s generation
+PASS: m_us_relaxed, 4.56 s audio, 0.649018 s generation
+PASS: m_us_upbeat, 3.28 s audio, 0.363946 s generation
+PASS: conversational interjections and laughter-text sample
+PASS: mid-stream/pre-start cancellation, invalid voice, and empty input
